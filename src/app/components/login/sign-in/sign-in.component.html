@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="LoginForm">
+      <form [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="login-full-width">
+          <mat-label>Логин</mat-label>
+          <input placeholder="Введите ваш email" name="email" formControlName="email" matInput>
+        </mat-form-field>
+        <mat-form-field class="login-full-width">
+          <mat-label>Введите ваш пароль</mat-label>
+          <input type="password" placeholder="Введите ваш пароль" name="password" formControlName="password" matInput>
+        </mat-form-field>
+        <button  mat-raised-button color="accent" type="submit" [disabled]="LoginForm.invalid">
+          Войти
+        </button>
+        <button style="margin-left: 20px" mat-raised-button color="accent" routerLink="/signUp" >
+          Создать аккаунт
+        </button>
+      </form>
+    </div>

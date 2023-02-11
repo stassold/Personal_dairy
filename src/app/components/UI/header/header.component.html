@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <div class="toolbar no-select" routerLink="">
+        <span>Мой дневник</span>
+      </div>
+      <span class="header-spacer"></span>
+      <div class="toolbar no-select">
+        <button class="toolbar button" *ngIf="isAuth" mat-flat-button routerLink="add">Создать запись</button>
+        <button class="toolbar button" *ngIf="!isAuth" mat-flat-button routerLink="signIn">Войти</button>
+        <button class="toolbar button" *ngIf="isAuth" mat-flat-button (click)="SignOut()" routerLink="signIn">Выйти</button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>

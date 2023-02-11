@@ -1,0 +1,38 @@
+<div class="container">
+  <ng-template [ngIf]="sending" [ngIfElse]="loading">
+  <div class="date">
+    {{date |  date:'short'}}
+  </div>
+
+  <div class="FormEditRecord">
+    <form [formGroup]="FormEditRecord" (ngSubmit)="onSubmit()">
+      <mat-form-field class="edit-record-full-width">
+        <mat-label>Название блога</mat-label>
+        <input placeholder="О чем ваш блог" name="title" formControlName="title"  matInput>
+      </mat-form-field>
+      <mat-form-field class="edit-record-full-width">
+        <mat-label>О чем сегодня пишем</mat-label>
+        <textarea name="text" rows="8" formControlName="text" matInput></textarea>
+      </mat-form-field>
+      <div style="margin: 5px">
+        <a href="https://ltdfoto.ru/" target="_blank">Загрузить свое фото</a>
+      </div>
+      <mat-form-field class="edit-record-full-width">
+        <mat-label>Ссылка на ваше изображение</mat-label>
+        <input placeholder="О чем ваш блог" name="image" formControlName="image"  matInput>
+      </mat-form-field>
+
+      <button style="margin-top: 5px" mat-raised-button color="accent" type="submit" [disabled]="FormEditRecord.invalid">
+        Изменить
+      </button>
+
+    </form>
+  </div>
+  </ng-template>
+
+    <ng-template #loading>
+      <div><mat-spinner></mat-spinner></div>
+    </ng-template>
+
+  </div>
+
