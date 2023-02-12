@@ -3,27 +3,34 @@ import {IRecords} from 'src/app/models/records';
 import {Subscription} from 'rxjs';
 import {RecordsService} from 'src/app/services/records.service';
 import {SupabaseService} from "../../services/supabase.service";
-import {Router} from '@angular/router';
-import {AuthSupabaseService} from "../../services/auth-supabase.service";
+
 
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.css'],
 })
+// Компонент главной страницы, здесь отображается наши записи дневника
 export class RecordsComponent implements OnInit {
-  constructor(private RecordsService: RecordsService, private SupabaseService: SupabaseService, private AuthSupabaseService: AuthSupabaseService, private router: Router) {
+  constructor(private RecordsService: RecordsService, private SupabaseService: SupabaseService) {
   }
-
+  // Проверка аутентификации
   isAuth: boolean;
-  user: any;
+  // Внутренний объект в который мы записываем , что получаем с backend
   obj: any;
-  author_id: any
+  // id автора записи, используется в верстке, чтобы добавлять методы удаления и редактирования только записям автора
+  author_id: string | null
+  // Переменная которая проверяет доступен ли сервис supabase и аутефицирован ли пользователь, чтобы смотреть все записи ,
+  // в ином случаем загрузка идет с дрого backend
   data_supabase = false;
+  // Переменная которая вызывает или прерывает в зависимости состояния наш лоадер
   loading = true;
+  // Записи дневника
   records: IRecords[];
+  // Подписчик для получения записей с backend по умолчанию ( без авторизации)
   recordsSubcription: Subscription;
 
+  // Метод проверки аутефикации
   OnAuth() {
     if (localStorage.getItem('user_role') === "authenticated") {
       this.data_supabase = true
@@ -32,15 +39,15 @@ export class RecordsComponent implements OnInit {
     }
   }
 
-
-
   ngOnInit() {
     this.OnAuth()
+    // Если Supabase не доступна или пользователь не аутентификацирован
     if (!this.data_supabase)
       this.recordsSubcription = this.RecordsService.getRecords().subscribe(
         (data) => {
           this.loading = false;
           this.records = data;
+          // Сортировка записей
           this.records = this.records.sort((a, b) => a.date < b.date ? 1 : -1);
           this.isAuth = false
         }
@@ -50,6 +57,7 @@ export class RecordsComponent implements OnInit {
     }
   }
 
+  // Метод получения записей с Supabase
   OnGetDataSupabase() {
     this.SupabaseService.getRecords()
       .then(data => {
@@ -62,7 +70,7 @@ export class RecordsComponent implements OnInit {
   }
 
 
-
+  // Метод удаления записи
   OnDelete(id: number) {
     this.loading = true
     this.SupabaseService.OnDelete(id)
@@ -73,6 +81,7 @@ export class RecordsComponent implements OnInit {
       )
   }
 
+  // При удаленения компонента не забываем отписываться
   ngOnDestroy() {
     if (this.recordsSubcription) this.recordsSubcription.unsubscribe();
   }

@@ -8,8 +8,10 @@ import {HandlerErrService} from "../../../services/handler-err.service";
 })
 export class HandlerErrorComponent {
 
+  // Компонент с выводом наших ошибок
  constructor(private HandlerErrService: HandlerErrService) {
  }
 
+ // Информация об ошибке берез из сервиса
  err = this.HandlerErrService.Erorr
 }

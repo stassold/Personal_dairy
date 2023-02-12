@@ -1,3 +1,4 @@
+// Модель наших запесей в дневнике
 export interface IRecords {
     id: number;
     date: string;

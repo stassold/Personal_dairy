@@ -7,8 +7,11 @@ import { SignInComponent } from './components/login/sign-in/sign-in.component';
 import { SignUpComponent } from './components/login/sign-up/sign-up.component';
 import {HandlerErrorComponent} from "./components/UI/handler-error/handler-error.component";
 
+
+//Роутинги приложения
 const routes: Routes = [
   { path: '', component: RecordsComponent },
+  // Роутинг для редактирования, которому надо передать id редактируемой записи
   { path: 'edit/:id', component: RecordEditComponent },
   { path: 'add', component: RecordAddComponent },
   { path: 'signIn', component:  SignInComponent},

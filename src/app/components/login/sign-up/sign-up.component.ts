@@ -11,7 +11,7 @@ import {AuthSupabaseService} from "../../../services/auth-supabase.service";
 export class SignUpComponent {
   constructor(private router: Router,private  AuthSupabaseService: AuthSupabaseService){}
 
-
+  // Копмонента регистрации на Supabase
 
   LoginForm: FormGroup = new FormGroup({
     email: new FormControl('',Validators.required),
