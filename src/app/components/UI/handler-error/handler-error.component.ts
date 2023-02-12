@@ -12,6 +12,6 @@ export class HandlerErrorComponent {
  constructor(private HandlerErrService: HandlerErrService) {
  }
 
- // Информация об ошибке берез из сервиса
+ // Информация об ошибке из сервиса
  err = this.HandlerErrService.Erorr
 }
